@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
+import random
 import os
 import time
 import gspread
@@ -98,6 +99,9 @@ while(True):
     assetRow = worksheet.row_values(assetCell.row)
 
     macAddress = assetRow[MAC_ADDRESS_INDEX]
+
+    ##Start to log what the script is doing in real-time
+    worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Running...")
   except:
       ##Row failure, require manual input
       print("\n------------------------------------\n")
@@ -125,8 +129,6 @@ while(True):
       wifiPassword = input("Please enter the hotspot's PASSWORD: ")
       print("\n------------------------------------\n")
 
-  ##Start to log what the script is doing in real-time
-  worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Running...")
 
   ##Printing out passwords in the logs to help possibly debug index values
   print("Successfully connected to Google Sheets, gathering values...")
@@ -707,9 +709,9 @@ while(True):
   ##claims to have worked. This can be turned off per-user with the AUDIT setting boolean
 
   if(AUDIT):
-      random = random.randrange(20)
+      randomNumber = random.randrange(20)
       
-      if(random == 10):
+      if(randomNumber == 10):
           ##5% perform audit
           print("\n-------------------------------------\n")
           print("AUDIT ALERT")
