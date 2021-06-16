@@ -88,22 +88,41 @@ while(True):
   ##Once we have an instance of the bot, we can load in the worksheet
   ##and find the value we want (and the row it is in)
   worksheet = macAddresses.worksheet(WORKSHEET_PULL_NAME)
-  assetCell = worksheet.find(assetNumber)
-  assetRow = worksheet.row_values(assetCell.row)
 
-  ##For the sheet this script was built, the chromebook and hotspot are not automatically paired
-  ##So we must scan both the hotspot, and the chromebook's asset tags
-  hotspotCell = worksheet.find(hotspotAsset)
-  hotspotRow = worksheet.row_values(hotspotCell.row)
+  try:
+    assetCell = worksheet.find(assetNumber)
+    assetRow = worksheet.row_values(assetCell.row)
+
+    macAddress = assetRow[MAC_ADDRESS_INDEX]
+  except:
+      ##Row failure, require manual input
+      print("\n------------------------------------\n")
+      print("Whoops! That chromebook's information could not be found")
+      print("in the database, please manually enter the CHROMEBOOK's")
+      print("MAC Address. (Network information button)")
+      macAddress = input("Please enter the chromebook's MAC address: ")
+      print("\n------------------------------------\n")
+
+  try:
+    ##For the sheet this script was built, the chromebook and hotspot are not automatically paired
+    ##So we must scan both the hotspot, and the chromebook's asset tags
+    hotspotCell = worksheet.find(hotspotAsset)
+    hotspotRow = worksheet.row_values(hotspotCell.row)
+
+    wifiName = hotspotRow[SSID_INDEX]
+    wifiPassword = hotspotRow[PASSWORD_INDEX]
+  except:
+      ## Row failure, require manual input
+      print("\n------------------------------------\n")
+      print("Whoops! That hotspot's information could not be found")
+      print("in the database, please manually enter the HOTSPOT's")
+      print("information.")
+      wifiName = input("Please enter the hotspot's USERNAME: ")
+      wifiPassword = input("Please enter the hotspot's PASSWORD: ")
+      print("\n------------------------------------\n")
 
   ##Start to log what the script is doing in real-time
   worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Running...")
-
-  ##Once we have the row, we can pull as much info we want as an array,
-  ##such as MAC, wifi SSID, and the wifi password.
-  macAddress = assetRow[MAC_ADDRESS_INDEX]
-  wifiName = hotspotRow[SSID_INDEX]
-  wifiPassword = hotspotRow[PASSWORD_INDEX]
 
   ##Printing out passwords in the logs to help possibly debug index values
   print("Successfully connected to Google Sheets, gathering values...")
