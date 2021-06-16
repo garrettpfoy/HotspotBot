@@ -101,15 +101,23 @@ while(True):
     macAddress = assetRow[MAC_ADDRESS_INDEX]
 
     ##Start to log what the script is doing in real-time
-    worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Running...")
+    ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Running...")
   except:
-      ##Row failure, require manual input
-      print("\n------------------------------------\n")
-      print("Whoops! That chromebook's information could not be found")
-      print("in the database, please manually enter the CHROMEBOOK's")
-      print("MAC Address. (Network information button)")
-      macAddress = input("Please enter the chromebook's MAC address: ")
-      print("\n------------------------------------\n")
+      try:
+        tryTwo = input("Please scan the SERIAL NUMBER (or inverse) of the CHROMEBOOK: ")
+
+        assetCell = worksheet.find(tryTwo)
+        assetRow = worksheet.row_values(assetCell)
+
+        macAddress = assetRow[MAC_ADDRESS_INDEX]
+      except:
+        ##Row failure, require manual input
+        print("\n------------------------------------\n")
+        print("Whoops! That chromebook's information could not be found")
+        print("in the database, please manually enter the CHROMEBOOK's")
+        print("MAC Address. (Network information button)")
+        macAddress = input("Please enter the chromebook's MAC address: ")
+        print("\n------------------------------------\n")
 
   try:
     ##For the sheet this script was built, the chromebook and hotspot are not automatically paired
@@ -192,7 +200,7 @@ while(True):
       print("Task failed at process: INITIAL_PASSWORD_ENTRY")
 
       ##Optional: Here we update the google sheet with the error code presented so if you miss the error in console, you can view it elsewhere
-      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "INITIAL_PASSWORD_ENTRY")
+      ### TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "INITIAL_PASSWORD_ENTRY")
 
       ##Here we quit out of the Selenium driver, which is basically just the instance of chrome
       driver.quit()
@@ -246,7 +254,7 @@ while(True):
       print("Successfully navigated to WifiSettings! Moving on...")
   except:
       print("Task failed at process: NAVIGATE_SETTINGS_BAR")
-      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "NAVIGATE_SETTINGS_BAR")
+      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "NAVIGATE_SETTINGS_BAR")
       driver.quit()
       exit()
 
@@ -261,7 +269,7 @@ while(True):
       print("Successfully set SSID! Moving on...")
   except:
       print("Task failed at process: WIFI_SSID_ENTRY")
-      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "WIFI_SSID_ENTRY")
+      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "WIFI_SSID_ENTRY")
       driver.quit()
       exit()
 
@@ -329,7 +337,7 @@ while(True):
 
       except:
           print("Task failed at process: WIFI_PASSWORD_ENTRY")
-          worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "WIFI_PASSWORD_ENTRY")
+          ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "WIFI_PASSWORD_ENTRY")
           driver.quit()
           exit()
 
@@ -363,7 +371,7 @@ while(True):
                       long.click()
                   except:
                       print("Task failed at process: WIFI_SAVE_CHANGES")
-                      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "WIFI_SAVE_CHANGES")
+                      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "WIFI_SAVE_CHANGES")
                       time.sleep(30)
                       driver.quit()
                       exit()
@@ -407,7 +415,7 @@ while(True):
                       action.send_keys(Keys.ENTER)
                   except:
                       print("Task failed at process: WIFI_CONFIRM_CHANGES")
-                      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "WIFI_CONFIRM_CHANGES")
+                      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "WIFI_CONFIRM_CHANGES")
                       driver.quit()
                       exit()
 
@@ -474,7 +482,7 @@ while(True):
       print("Successfully selected the APN dropdown! Moving on...")
   except:
       print("Task failed at process: APN_DROPDOWN_SELECT")
-      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "APN_DROPDOWN_SELECT")
+      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "APN_DROPDOWN_SELECT")
       driver.quit()
       exit()
 
@@ -491,7 +499,7 @@ while(True):
           print("Successfully selected T-MOBILE from dropdown! Moving on...")
       except:
           print("Task failed at process: APN_PROFILE_SELECT")
-          worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "APN_PROFILE_SELECT")
+          ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "APN_PROFILE_SELECT")
           driver.quit()
           exit()
 
@@ -523,7 +531,7 @@ while(True):
           print("Successfully selected whitelist from MAC dropdown! Moving on...")
   except:
       print("Task failed at process: MAC_DROPDOWN_SELECT")
-      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_DROPDOWN_SELECT")
+      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_DROPDOWN_SELECT")
       driver.quit()
       exit()
 
@@ -538,7 +546,7 @@ while(True):
       time.sleep(0.5)
   except:
       print("Task failed at process: MAC_ADD_STUDENTID")
-      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_STUDENTID")
+      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_STUDENTID")
       driver.quit()
       exit()
 
@@ -551,7 +559,7 @@ while(True):
       time.sleep(0.5)
   except:
       print("Task failed at process: MAC_ADD_STUDENTADDY")
-      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_STUDENTADDY")
+      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_STUDENTADDY")
       driver.quit()
       exit()
 
@@ -563,7 +571,7 @@ while(True):
       time.sleep(0.5)
   except:
       print("Task failed at process: MAC_ADD_STUDENT")
-      worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_STUDENT")
+      ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_STUDENT")
       driver.quit()
       exit()
 
@@ -589,7 +597,7 @@ while(True):
   #    print("Successfully added first admin MAC (asset)! Moving on...")
   #except:
   #    print("Task failed at process: MAC_ADMIN_ADDID_ONE")
-  #    worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADMIN_ADDID_ONE")
+  #    ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADMIN_ADDID_ONE")
   #    driver.quit()
   #    exit()
   #
@@ -606,7 +614,7 @@ while(True):
   #    time.sleep(0.5)
   #except:
   #    print("Task failed at process: MAC_ADMIN_ADDMAC_ONE")
-  #    worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADMIN_ADDMAC_ONE")
+  #    ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADMIN_ADDMAC_ONE")
   #    driver.quit()
   #    exit()
   #
@@ -618,7 +626,7 @@ while(True):
   #    time.sleep(0.5)
   #except:
   #    print("Task failed at process: MAC_ADMIN_ADD_ONE")
-  #    worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADMIN_ADD_ONE")
+  #    ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADMIN_ADD_ONE")
   #    driver.quit()
   #    exit()
   #
@@ -646,7 +654,7 @@ while(True):
   #    time.sleep(0.5)
   #except:
   #    print("Task failed at process: MAC_ADD_ADMINID_TWO")
-  #    worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_ADMINID_TWO")
+  #    ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_ADMINID_TWO")
   #    driver.quit()
   #    exit()
   #
@@ -664,7 +672,7 @@ while(True):
   #    time.sleep(0.5)
   #except:
   #    print("Task failed at process: MAC_ADD_ADMINMAC_TWO")
-  #    worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_ADMINMAC_TWO")
+  #    ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_ADMINMAC_TWO")
   #    exit()
   #
   #try:
@@ -675,7 +683,7 @@ while(True):
   #    time.sleep(0.5)
   #except:
   #    print("Task failed at process: MAC_ADD_ADMIN_TWO")
-  #    worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_ADMIN_TWO")
+  #    ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "MAC_ADD_ADMIN_TWO")
   #    driver.quit()
   #    exit()
 
@@ -726,7 +734,7 @@ while(True):
     
           time.sleep(5)
 
-  worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Success!")
+  ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Success!")
 
   if(WORKSHEET_PUSH):
       ##Reference: [CB_ASSET, CB_MAC, HS_ASSET, HS_SSID, HS_PASS, STATUS]
