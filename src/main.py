@@ -8,7 +8,11 @@ import os
 import time
 import gspread
 
-##SETTINGS! DO NOT CHANGE UNLESS INSTRUCTED
+##SETTINGS! DO NOT CHANGE UNLESS YOU KNOW WHAT YOU ARE DOING
+
+## Should the script instruct the user to audit random successful pairs?
+## Current audit rate = 5%, or every 20 pairings done.
+AUDIT = True
 
 #Root Directory, do not include individual file names, path should end with \src
 ROOT_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
@@ -693,6 +697,32 @@ while(True):
   print("Re-run the script and it should work")
   print(" ")
   driver.close()
+
+  ##NEW -- AUDIT SYSTEM
+  ##Script works almost 100% of the time, however no script is perfect especially
+  ##when dataset is incomplete and hotspots run different versions.
+  ##Thus, the script will automatically tell a user to "audit" themselves
+  ##about 5% of the time. Audit meaning to make sure the script is actually
+  ##pairing the hotspot and chromebook together successfully when the script
+  ##claims to have worked. This can be turned off per-user with the AUDIT setting boolean
+
+  if(AUDIT):
+      random = random.randrange(20)
+      
+      if(random == 10):
+          ##5% perform audit
+          print("\n-------------------------------------\n")
+          print("AUDIT ALERT")
+          print("This message shows up less than 5% of all pairings")
+          print("and recommends you to audit the above pair to ensure")
+          print("the script maintains it's high success rate.\n")
+          print("Additionally, auditing the script once and a while")
+          print("prevents consecutive false-successful pairings from occuring.\n")
+          print("Don't want this message? Simply turn the AUDIT variable")
+          print("to false in the main.py file and restart the script.")
+          print("\n-------------------------------------\n")
+    
+          time.sleep(5)
 
   worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Success!")
 
