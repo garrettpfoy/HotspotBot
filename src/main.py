@@ -103,14 +103,15 @@ while(True):
     ##Start to log what the script is doing in real-time
     ## TEMPORARILY DEPRECATED worksheet.update_cell(assetCell.row, (STATUS_INDEX + 1), "Running...")
   except:
+      tryTwo = input("Please scan the SERIAL NUMBER (or inverse) of the CHROMEBOOK: ")
+    
       try:
-        tryTwo = input("Please scan the SERIAL NUMBER (or inverse) of the CHROMEBOOK: ")
+        temp = worksheet.find(str(tryTwo))
+        tempRow = worksheet.row_values(temp.row)
 
-        assetCell = worksheet.find(tryTwo)
-        assetRow = worksheet.row_values(assetCell)
-
-        macAddress = assetRow[MAC_ADDRESS_INDEX]
-      except:
+        macAddress = tempRow[MAC_ADDRESS_INDEX]
+      except Exception as error:
+        print(str(error))
         ##Row failure, require manual input
         print("\n------------------------------------\n")
         print("Whoops! That chromebook's information could not be found")
