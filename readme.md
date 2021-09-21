@@ -13,9 +13,7 @@
    * RIGHT-CLICK the icon and click “Run as Administrator”
 
 3. Install python packages using PIP -- type the following in command prompt
-   * “pip install gspread”
-   * “pip install playsound”
-   * “pip install selenium”
+   * "pip install requirements.txt"
 
 ## Script Installment
 
@@ -29,14 +27,6 @@ Find your downloaded folder and drag it to wherever you want.
 In your chosen location, open the zipped download and extract it’s contents
 Once you are done, delete the zipped folder.
 
-### Setting up directory
-   1. Find the path of the src subfolder (NOT the directory with the readme)
-   2. Copy and paste the full path (e.g. 'C:/Users/Garrett Foy/Desktop'
-   3. Navigate to the src directory
-   4. Find the "main.py" script file, right click, and edit with **NOTEPAD**
-   5. Find the line "ROOT_DIRECTORY = """ and copy and paste your absolute path here
-   6. Find the line "   
-6. Save the file
 
 ## Script Initiation
 1. Open Command Prompt (Search bar → Command Prompt → Run as Administrator)
